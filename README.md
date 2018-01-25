@@ -4,6 +4,9 @@
 
 Both broadcasting and viewing requires [Beaker Browser](https://beakerbrowser.com/).
 
+## Demo
+[Try it now in Beaker Browser!](https://rationalcoding.github.io/hypercast-browser/demo/demo.html)
+
 ## Install
 With Browserify:
 
