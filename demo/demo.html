@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <style>
+            body {
+                background: #FFA0AC;
+                position: relative;
+            }
+            video {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+            }
+            .link {
+                position: absolute;
+                left: 10px;
+                top: 10px;   
+                background: #F5F5F5;
+                border: 10px solid #F5F5F5;
+                border-radius: 10px;
+                z-index: 1;
+            }
+            a {
+                color: #333333;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display:none" class="link">
+            <a target="_blank"></a>
+        </div>
+        <video></video>
+
+    </body>
+    <script src="./../dist/hypercast.js"></script>
+    <script src="getusermedia.js"></script>
+    <script>
+        if (!window.DatArchive) {
+            window.alert('This demo only works in Beaker Browser!')
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var viewURL = getParameterByName('view', window.location.href)
+        if (viewURL) {
+            view(viewURL)
+        } else {
+            broadcast()
+        }
+
+        function view (url) {
+            start()
+            async function start () {
+                var v = Hypercast.view(url, {
+                    videoElement: v
+                })
+
+                v.autoplay = true
+                v.oncanplay = function () {
+                    v.play()
+                }
+                document.body.appendChild(v)
+            }
+        }
+
+        function broadcast () {
+            getusermedia({audio: true, video: true}, (err, stream) => {
+                if (err) throw err
+
+                start()
+                async function start () {
+                    var v = document.querySelector('video')
+
+                    var url = await Hypercast.broadcast(stream)
+                    v.srcObject = stream
+
+                    v.autoplay = true
+                    v.oncanplay = function () {
+                        v.play()
+                    }
+                    document.body.appendChild(v)
+                    document.body.appendChild(document.createElement('br'))
+
+                    var watchUrl = window.location.href + '?view=' + url
+
+                    var watchDiv = document.querySelector('.link')
+                    watchDiv.style.display = ''
+
+                    var watchLink = document.querySelector('a')
+                    watchLink.innerHTML = watchUrl
+                    watchLink.href = watchUrl
+                }
+            })
+        }
+    
+    </script>
+</html>

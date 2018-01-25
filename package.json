@@ -1,0 +1,38 @@
+{
+  "name": "hypercast-browser.",
+  "version": "1.0.0",
+  "description": "louiscenter/hypercast as a browser-only module.",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "standard --fix src/**",
+    "build": "browserify src/index.js -s Hypercast -o dist/hypercast.js"
+  },
+  "author": "Thomas Mullen",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^15.2.0",
+    "standard": "^8.6.0",
+    "tape": "^4.6.3",
+    "watchify": "^3.9.0"
+  },
+  "dependencies": {
+    "mediastream-to-webm": "^1.0.1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "plugins": [
+            "transform-async-to-generator"
+          ]
+        }
+      ]
+    ]
+  }
+}
