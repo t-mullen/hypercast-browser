@@ -5,7 +5,7 @@
 Both broadcasting and viewing requires [Beaker Browser](https://beakerbrowser.com/).
 
 ## Demo
-[Try it now in Beaker Browser!](https://rationalcoding.github.io/hypercast-browser/demo/demo.html)
+[Try it now in Beaker Browser!](https://t-mullen.github.io/hypercast-browser/demo/demo.html)
 
 1. Allow webcam access.
 2. Click the link to view the stream across the Dat protocol!
